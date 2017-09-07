@@ -27,5 +27,11 @@ class Product extends Model
      */
     protected $fillable = ['nombre', 'descripcion', 'category_id', 'stock', 'precio'];
 
+
+    public function category(){
+
+        return $this->belongsTo('App\Category');
+    }
+
     
 }

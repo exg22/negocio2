@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use App\Product;
 use Illuminate\Http\Request;
 use Session;
@@ -42,8 +42,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        
-        return view('product.product.create');
+        $categories = DB::table('categories')->pluck('nombre','id');
+
+        return view('product.product.create',compact('categories'));
     }
 
     /**
@@ -93,8 +94,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $categories = DB::table('categories')->pluck('nombre','id');
 
-        return view('product.product.edit', compact('product'));
+        return view('product.product.edit', compact('product','categories'));
     }
 
     /**
