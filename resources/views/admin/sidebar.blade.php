@@ -16,6 +16,11 @@
                         Productos
                     </a>
                 </li>
+                <li role="presentation">
+                    <a href="{{ url('/client') }}">
+                        Clientes
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
