@@ -13,7 +13,17 @@ class InvoiceProduct extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('invoice_product', function(Blueprint $table) {
+            $table->increments('id');
+            $table->integer('cantidad');
+            $table->integer('invoice_id')
+                ->unsigned()->index();
+            $table->integer('product_id')
+                ->unsigned()->index();
+            $table->foreign('invoice_id')->references('id')->on('invoices');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->timestamps();
+        });
     }
 
     /**

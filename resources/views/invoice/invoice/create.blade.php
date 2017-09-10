@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/invoice', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/invoice', 'class' => 'form-horizontal', 'files' => true,'id' =>'listadop']) !!}
 
                         @include ('invoice.invoice.form')
 

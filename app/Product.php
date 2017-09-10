@@ -33,5 +33,8 @@ class Product extends Model
         return $this->belongsTo('App\Category');
     }
 
-    
+    public function invoice()
+    {
+        return $this->belongsToMany('App\invoice','invoice_product','invoice_id','product_id');
+    }
 }

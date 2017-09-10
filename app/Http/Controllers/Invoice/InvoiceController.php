@@ -42,8 +42,9 @@ class InvoiceController extends Controller
     {
         $payments = DB::table('payments')->pluck('nombre','id');
         $clients = DB::table('clients')->pluck('nombre','id');
+        $products=$clients = DB::table('products')->pluck('nombre','id');
 
-        return view('invoice.invoice.create', compact('invoice','payments','clients'));
+        return view('invoice.invoice.create', compact('invoice','payments','clients','products'));
     }
 
     /**
@@ -55,14 +56,42 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Invoice::create($requestData);
+        $clients = $request->input('clients');
+        $payments = $request->input('payments');
+        $newDate = date("Y-m-d", strtotime($request->input('fecha')));
 
+        $requestData = array('fecha' => $newDate,
+            'client_id' => $request->input('client_id'),
+            'payment_id' => $request->input('payment_id')
+            );
+
+
+        $invoice = Invoice::create($requestData);
+        $this->insertArticles($clients, $payments, $invoice);
+        //$this->updateStockDeposit($articles, $cantidades, $deposit);
+        //DepositController::updateStockDeposit($articles, $cantidades, $deposit);
         Session::flash('flash_message', 'Invoice added!');
-
         return redirect('invoice');
+    }
+        //agrego para probar lo de abajo
+        public function insertArticles($products, $payments, Invoice $invoice)
+    {
+        $insertId = $invoice->id;
+        for ($i = 0; $i < sizeof($products); $i++) {
+            $invoices->products()->attach($products[$i], array('payments' => $payments[$i],
+                'invoice_id' => $insertId));
+        };
+
+
+        /* hago para probar lo de arriba
+         $requestData = $request->all();
+
+         Invoice::create($requestData);
+
+         Session::flash('flash_message', 'Invoice added!');
+
+         return redirect('invoice');
+        */
     }
 
     /**

@@ -18,6 +18,13 @@
     </div>
 </div>
 
+
+<div class="form-group">
+    <div class="col-md-offset-4 col-md-4">
+        {!! Form::button('Agregar producto', ['class' => 'btn btn-primary','id' =>'addProduct']) !!}
+    </div>
+</div>
+
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
         {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-primary']) !!}

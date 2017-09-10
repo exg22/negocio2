@@ -111,5 +111,80 @@
         });
     </script>
 
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+            var counter = 2;
+
+            $("#addProduct").click(function () {
+
+                if(counter>10){
+                    alert("Only 10 textboxes allow");
+                    return false;
+                }
+
+                var contenedorCentral = document.createElement("div");
+                contenedorCentral.className='form-group';
+
+                var etiqueta = document.createElement('label');
+                etiqueta.className='col-md-4 control-label';
+                var tituloEtiqueta = document.createTextNode('Productos');
+                etiqueta.appendChild(tituloEtiqueta);
+                contenedorCentral.appendChild(etiqueta);
+
+
+
+
+                var contenedorSecundario = document.createElement("div");
+
+                contenedorSecundario.setAttribute('class','col-md-6');
+
+                var cajaTexto1 = document.createElement('input')
+                cajaTexto1.setAttribute('class','form-control');
+                cajaTexto1.setAttribute('placeholder','Ingrese el Codigo del Producto');
+                cajaTexto1.setAttribute('name','products[]');
+
+                var cajaTexto2 = document.createElement('input');
+                cajaTexto2.setAttribute('class','form-control');
+                cajaTexto2.setAttribute('placeholder','Ingrese la cantidad comprada del Producto');
+                cajaTexto2.setAttribute('name','cantidad[]');
+
+                contenedorSecundario.appendChild(cajaTexto1);
+                contenedorSecundario.appendChild(cajaTexto2);
+
+                contenedorCentral.appendChild(contenedorSecundario);
+
+
+                document.getElementById('listadop').appendChild(contenedorCentral);
+                //contenedorSecundario.appendTo(".form-horizontal");
+
+
+                counter++;
+            });
+
+            $("#removeButton").click(function () {
+                if(counter==1){
+                    alert("No more textbox to remove");
+                    return false;
+                }
+
+                counter--;
+
+                $("#TextBoxDiv" + counter).remove();
+
+            });
+
+            $("#getButtonValue").click(function () {
+
+                var msg = '';
+                for(i=1; i<counter; i++){
+                    msg += "\n Textbox #" + i + " : " + $('#textbox' + i).val();
+                }
+                alert(msg);
+            });
+        });
+    </script>
+
 </body>
 </html>

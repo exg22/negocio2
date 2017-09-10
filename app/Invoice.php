@@ -34,4 +34,11 @@ class Invoice extends Model
     public function clients(){
         return $this->belongsTo('App/clients');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Products','invoice_product','invoice_id','product_id')
+            ->whithPivot('cantidad')
+            ->whithTimestamps();
+    }
 }
